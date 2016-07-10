@@ -1,5 +1,4 @@
-
-//Restaurant Bill Calculator app
+//Restaurant Bill Calculator Application
 //Java Project: Part 2
 //Author: Aimee Tyrrell
 //Author email address: aimee.tyrrell@gmail.com
@@ -88,11 +87,7 @@ public class RestaurantBillCalculator extends JFrame {
 	private Connection myConnection;
 	private Statement myStatement;
 	private ResultSet myResultSet;
-
-	// Database credentials
-	// static final String USER = "root";
-	// static final String PASS = "root";
-
+	
 	// declare instance variable ArrayList to hold bill items
 	private ArrayList billItems = new ArrayList();
 	private double subtotal;
@@ -105,13 +100,11 @@ public class RestaurantBillCalculator extends JFrame {
 
 			// load driver
 			Class.forName(databaseDriver);
-
 			// connect to database
 			myConnection = DriverManager.getConnection(databaseURL, USER, PASS);
-			System.out.println(myConnection);
 			// create statement
 			myStatement = myConnection.createStatement();
-			// set connected boolean to true for checks later
+			// set connected boolean to true (for checks later)
 			connectedToDatabase = true;
 
 		} catch (SQLException exception) {
@@ -131,7 +124,8 @@ public class RestaurantBillCalculator extends JFrame {
 
 	// create error alert if the database connection could not be found
 	private void createErrorInterface() {
-
+		
+		//create new JOPtion Pane if no database found
 		JOptionPane error = new JOptionPane();
 		// add message to Joption Pane
 		error.showMessageDialog(null, "Coould not connect to the database, please check the database credentials");
@@ -476,8 +470,8 @@ public class RestaurantBillCalculator extends JFrame {
 	private void calculateBillJButtonActionPerformed(ActionEvent event) {
 
 		if (tableNumberJTextField.getText().equals("") || waiterNameJTextField.getText().equals("")) {
-			// if table number and waiter name are empty once user clicks
-			// calculate bill fire JOption Pane warning
+			// if table number and waiter name are empty once user clicks calculate bill 
+			// fire JOption Pane warning
 			JOptionPane pane = new JOptionPane();
 			// add message to Joption Pane
 			pane.showMessageDialog(null, "Table Number and waiter name must contain information");
@@ -503,8 +497,7 @@ public class RestaurantBillCalculator extends JFrame {
 			for (int i = 0; i < items.length; i++) {
 
 				// execute query to get price
-				myResultSet = myStatement
-						.executeQuery("SELECT price " + "FROM menu WHERE name = '" + (String) items[i] + "'");
+				myResultSet = myStatement.executeQuery("SELECT price " + "FROM menu WHERE name = '" + (String) items[i] + "'");
 
 				// myResultSet not empty
 				if (myResultSet.next() == true) {

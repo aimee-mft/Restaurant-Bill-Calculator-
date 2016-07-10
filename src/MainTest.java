@@ -1,10 +1,9 @@
-//Restaurant Bill Calculator app
+//Restaurant Bill Calculator Application
 //Java Project: Part 2
 //Author: Aimee Tyrrell
 //Author email address: aimee.tyrrell@gmail.com
 
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 public class MainTest {
