@@ -37,7 +37,7 @@ public class RestaurantBillCalculator extends JFrame {
 
 	// JLabel and JTextField for table number
 	private JLabel tableNumberJLabel;
-	private JTextField tableNumberJTextField;
+	private JComboBox tableNumberJComboBox;
 
 	// JLabel and JTextField for waiter name
 	private JLabel waiterNameJLabel;
@@ -64,6 +64,12 @@ public class RestaurantBillCalculator extends JFrame {
 
 	// JButton for calculate bill
 	private JButton calculateBillJButton;
+	
+	// JButton for pay bill
+	private JButton payBillJButton;
+
+	// JButton for save table
+	private JButton saveTableJButton;
 
 	// JLabel and JTextField for subtotal
 	private JLabel subtotalJLabel;
@@ -163,7 +169,7 @@ public class RestaurantBillCalculator extends JFrame {
 
 		// set up subtotalJLabel
 		subtotalJLabel = new JLabel("Subtotal: ");
-		subtotalJLabel.setBounds(15, 400, 100, 25);
+		subtotalJLabel.setBounds(15, 340, 100, 25);
 		subtotalJLabel.setFont(new Font("Helvetica", Font.ROMAN_BASELINE, 14));
 		contentPane.add(subtotalJLabel);
 
@@ -171,7 +177,7 @@ public class RestaurantBillCalculator extends JFrame {
 		subtotalJTextField = new JTextField();
 		subtotalJTextField.setFont(new Font("Helvetica", Font.ROMAN_BASELINE, 14));
 		subtotalJTextField.setBackground(null);
-		subtotalJTextField.setBounds(100, 400, 100, 25);
+		subtotalJTextField.setBounds(100, 340, 100, 25);
 
 		subtotalJTextField.setEditable(false);
 		subtotalJTextField.setHorizontalAlignment(JTextField.RIGHT);
@@ -182,13 +188,13 @@ public class RestaurantBillCalculator extends JFrame {
 
 		// taxJLabel
 		taxJLabel = new JLabel("Tax: ");
-		taxJLabel.setBounds(15, 430, 100, 25);
+		taxJLabel.setBounds(15, 370, 100, 25);
 		taxJLabel.setFont(new Font("Helvetica", Font.ROMAN_BASELINE, 14));
 		contentPane.add(taxJLabel);
 
 		// set up taxJTextField
 		taxJTextField = new JTextField(5);
-		taxJTextField.setBounds(100, 430, 100, 25);
+		taxJTextField.setBounds(100, 370, 100, 25);
 		taxJTextField.setHorizontalAlignment(JTextField.RIGHT);
 		taxJTextField.setBackground(null);
 		taxJTextField.setEditable(false);
@@ -199,24 +205,40 @@ public class RestaurantBillCalculator extends JFrame {
 
 		// set up totalJLabel
 		totalJLabel = new JLabel("Total: ");
-		totalJLabel.setBounds(15, 460, 100, 25);
+		totalJLabel.setBounds(15, 400, 100, 25);
 		totalJLabel.setFont(new Font("Helvetica", Font.ROMAN_BASELINE, 14));
 		contentPane.add(totalJLabel);
 
 		// set up totalJTextField
 		totalJTextField = new JTextField();
-		totalJTextField.setBounds(100, 460, 100, 25);
+		totalJTextField.setBounds(100, 400, 100, 25);
 		totalJTextField.setEditable(false);
 		totalJTextField.setHorizontalAlignment(JTextField.RIGHT);
 		totalJTextField.setBackground(null);
 		totalJTextField.setBorder(BorderFactory.createLoweredSoftBevelBorder());
 		totalJTextField.setFont(new Font("Helvetica", Font.ROMAN_BASELINE, 14));
 		contentPane.add(totalJTextField);
-
+		
+		//Save Table JButton
+		saveTableJButton = new JButton("Save Table");
+		saveTableJButton.setEnabled(false);
+		saveTableJButton.setFont(new Font("Helvetica", Font.ROMAN_BASELINE, 14));
+		saveTableJButton.setBorder(BorderFactory.createRaisedBevelBorder());
+		saveTableJButton.setBounds(210, 340, 100, 25);
+		add(saveTableJButton);
+		
+		// Pay Bill Button
+		payBillJButton = new JButton("Pay Bill");
+		payBillJButton.setEnabled(false);
+		payBillJButton.setFont(new Font("Helvetica", Font.ROMAN_BASELINE, 14));
+		payBillJButton.setBorder(BorderFactory.createRaisedBevelBorder());
+		payBillJButton.setBounds(210, 400, 100, 25);
+		add(payBillJButton);
+		
 		// Calculate Bill Button
 		calculateBillJButton = new JButton("Calculate Bill");
-		calculateBillJButton.setEnabled(true);
-		calculateBillJButton.setBounds(100, 370, 100, 25);
+		calculateBillJButton.setEnabled(false);
+		calculateBillJButton.setBounds(210, 370, 100, 25);
 		calculateBillJButton.setFont(new Font("Helvetica", Font.ROMAN_BASELINE, 14));
 		calculateBillJButton.setBorder(BorderFactory.createRaisedBevelBorder());
 		add(calculateBillJButton);
@@ -255,12 +277,11 @@ public class RestaurantBillCalculator extends JFrame {
 		tableNumberJLabel.setBounds(5, 30, 100, 25);
 		waiterJPanel.add(tableNumberJLabel);
 
-		// set up tableNumberJTextField
-		tableNumberJTextField = new JTextField();
-		tableNumberJTextField.setBounds(100, 30, 100, 25);
-		tableNumberJTextField.setBorder(BorderFactory.createEtchedBorder());
-		tableNumberJTextField.setFont(new Font("Helvetica", Font.ROMAN_BASELINE, 14));
-		waiterJPanel.add(tableNumberJTextField);
+		// set up tableNumberJComboBox
+		tableNumberJComboBox = new JComboBox();
+		tableNumberJComboBox.setBounds(150, 30, 110, 25);
+		tableNumberJComboBox.setFont(new Font("Helvetica", Font.ROMAN_BASELINE, 14));
+		waiterJPanel.add(tableNumberJComboBox);
 
 		// set up waiterNameJLabel
 		waiterNameJLabel = new JLabel("Waiter name: ");
@@ -270,7 +291,8 @@ public class RestaurantBillCalculator extends JFrame {
 
 		// set up waiterNameJTextField
 		waiterNameJTextField = new JTextField();
-		waiterNameJTextField.setBounds(100, 60, 100, 25);
+		waiterNameJTextField.setBounds(150, 60, 100, 25);
+		waiterNameJTextField.setEditable(false);
 		waiterNameJTextField.setBorder(BorderFactory.createEtchedBorder());
 		waiterNameJTextField.setFont(new Font("Helvetica", Font.ROMAN_BASELINE, 14));
 		waiterJPanel.add(waiterNameJTextField);
@@ -293,7 +315,7 @@ public class RestaurantBillCalculator extends JFrame {
 
 		// set up beverageJComboBox
 		beverageJComboBox = new JComboBox();
-		beverageJComboBox.setBounds(90, 25, 128, 25);
+		beverageJComboBox.setBounds(90, 25, 170, 25);
 		beverageJComboBox.setFont(new Font("Helvetica", Font.ROMAN_BASELINE, 14));
 		menuItemsJPanel.add(beverageJComboBox);
 		beverageJComboBox.addItemListener(new ItemListener() // anonymous inner
@@ -319,7 +341,7 @@ public class RestaurantBillCalculator extends JFrame {
 
 		// set up appetizerJComboBox
 		appetizerJComboBox = new JComboBox();
-		appetizerJComboBox.setBounds(88, 56, 128, 25);
+		appetizerJComboBox.setBounds(88, 56, 170, 25);
 		appetizerJComboBox.setFont(new Font("Helvetica", Font.ROMAN_BASELINE, 14));
 		menuItemsJPanel.add(appetizerJComboBox);
 		appetizerJComboBox.addItemListener(new ItemListener() // anonymous inner
@@ -345,7 +367,7 @@ public class RestaurantBillCalculator extends JFrame {
 
 		// set up mainCourseJComboBox
 		mainCourseJComboBox = new JComboBox();
-		mainCourseJComboBox.setBounds(88, 88, 128, 25);
+		mainCourseJComboBox.setBounds(88, 88, 170, 25);
 		mainCourseJComboBox.setFont(new Font("Helvetica", Font.ROMAN_BASELINE, 14));
 		menuItemsJPanel.add(mainCourseJComboBox);
 
@@ -376,7 +398,7 @@ public class RestaurantBillCalculator extends JFrame {
 
 		// set up dessertJComboBox
 		dessertJComboBox = new JComboBox();
-		dessertJComboBox.setBounds(88, 120, 128, 25);
+		dessertJComboBox.setBounds(88, 120, 170, 25);
 		dessertJComboBox.setFont(new Font("Helvetica", Font.ROMAN_BASELINE, 14));
 		menuItemsJPanel.add(dessertJComboBox);
 
@@ -400,6 +422,43 @@ public class RestaurantBillCalculator extends JFrame {
 		loadCategory("Dessert", dessertJComboBox);
 
 	} // end method createMenuItemsJPanel
+	
+	
+	// reset JFrame
+		private void resetJFrame() {
+			
+			// reset instance variable
+			billItems = new ArrayList();
+
+			// reset and disable menuItemsJPanel
+			menuItemsJPanel.setEnabled(false);
+			beverageJComboBox.setSelectedIndex(0);
+			appetizerJComboBox.setSelectedIndex(0);
+			mainCourseJComboBox.setSelectedIndex(0);
+			dessertJComboBox.setSelectedIndex(0);
+			beverageJComboBox.setEnabled(false);
+			appetizerJComboBox.setEnabled(false);
+			mainCourseJComboBox.setEnabled(false);
+			dessertJComboBox.setEnabled(false);
+
+			// reset and enable waiterJPanel
+			waiterJPanel.setEnabled(true);
+			tableNumberJComboBox.setEnabled(true);
+			tableNumberJComboBox.setSelectedIndex(0);
+			waiterNameJTextField.setText("");
+
+			// clear JTextFields
+			subtotalJTextField.setText("");
+			taxJTextField.setText("");
+			totalJTextField.setText("");
+
+			// disable JButtons
+			saveTableJButton.setEnabled(false);
+			calculateBillJButton.setEnabled(false);
+			payBillJButton.setEnabled(false);
+
+		} // end method resetJFrame
+
 
 	// add items to JComboBox
 	private void loadCategory(String category, JComboBox categoryJComboBox) {
@@ -469,7 +528,7 @@ public class RestaurantBillCalculator extends JFrame {
 	// user clicks CalculateBillJButton
 	private void calculateBillJButtonActionPerformed(ActionEvent event) {
 
-		if (tableNumberJTextField.getText().equals("") || waiterNameJTextField.getText().equals("")) {
+		if (tableNumberJComboBox.getSelectedItem().equals(0) || waiterNameJTextField.getText().equals("")) {
 			// if table number and waiter name are empty once user clicks calculate bill 
 			// fire JOption Pane warning
 			JOptionPane pane = new JOptionPane();
