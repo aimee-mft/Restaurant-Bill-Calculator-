@@ -1,5 +1,5 @@
 //Restaurant Bill Calculator Application
-//Java Project: Part 3
+//Java Project: Part 4
 //Author: Aimee Tyrrell
 //Author email address: aimee.tyrrell@gmail.com
 
